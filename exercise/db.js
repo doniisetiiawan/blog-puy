@@ -1,4 +1,6 @@
-const { MongoClient } = require('mongodb');
+const mongoose = require('mongoose');
+
+mongoose.set('useCreateIndex', true);
 
 const uri = 'mongodb+srv://blog-puy:dqnIFvtl58YmmBS4@blog-puy-yirbl.mongodb.net/test?retryWrites=true&w=majority';
 
@@ -8,10 +10,14 @@ const options = {
   useUnifiedTopology: true,
 };
 
-MongoClient.connect(uri, options)
-  .then(() => {
-    console.log('Successfully connected to MongoDB');
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+mongoose.connect(uri, options).then(
+  () => {
+    console.log('Database connection established!');
+  },
+  (err) => {
+    console.log(
+      'Error connecting Database instance due to: ',
+      err,
+    );
+  },
+);
