@@ -20,11 +20,10 @@ exports.listTagArticles = (req, res) => {
 
 exports.createNewArticle = (req, res) => {
   const newArticle = new Article(req.body);
-  newArticle.save((err, article) => {
+  newArticle.save((err) => {
     if (err) {
       res.status(500).send(err);
     }
-    res.status(201).json(article);
   });
 };
 
