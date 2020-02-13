@@ -11,9 +11,9 @@ const BlogSchema = new Schema({
   tag: {
     type: String,
     enum: [
-      'POLITICS',
       'ECONOMY',
       'EDUCATION',
+      'POLITICS',
       'STORY',
       'TECH',
     ],

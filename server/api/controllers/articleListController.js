@@ -52,7 +52,7 @@ exports.updateArticle = (req, res) => {
 };
 
 exports.deleteArticle = (req, res) => {
-  Article.remove(
+  Article.deleteOne(
     { _id: req.params.articleid },
     (err) => {
       if (err) {
