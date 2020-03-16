@@ -1,26 +1,32 @@
-const articleList = require('../controllers/articleListController');
-const userHandlers = require('../controllers/userController');
+import {
+  listAllArticles,
+  listTagArticles,
+  createNewArticle,
+  readArticle,
+  updateArticle,
+  deleteArticle,
+} from '../controllers/articleListController';
+import {
+  register,
+  signIn,
+  loginRequired,
+} from '../controllers/userController';
 
-module.exports = (app) => {
+export default (app) => {
   app
     .route('/articles')
-    .get(articleList.listAllArticles)
-    .post(
-      userHandlers.loginRequired,
-      articleList.createNewArticle,
-    );
+    .get(listAllArticles)
+    .post(loginRequired, createNewArticle);
 
   app
     .route('/article/:articleid')
-    .get(articleList.readArticle)
-    .put(articleList.updateArticle)
-    .delete(articleList.deleteArticle);
+    .get(readArticle)
+    .put(updateArticle)
+    .delete(deleteArticle);
 
-  app
-    .route('/articles/by/:tag')
-    .get(articleList.listTagArticles);
+  app.route('/articles/by/:tag').get(listTagArticles);
 
-  app.route('/auth/register').post(userHandlers.register);
+  app.route('/auth/register').post(register);
 
-  app.route('/auth/sign_in').post(userHandlers.signIn);
+  app.route('/auth/sign_in').post(signIn);
 };

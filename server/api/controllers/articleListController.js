@@ -1,6 +1,6 @@
-const Article = require('../models/Article');
+import Article from '../models/Article';
 
-exports.listAllArticles = (req, res) => {
+const listAllArticles = (req, res) => {
   Article.find({}, (err, article) => {
     if (err) {
       res.status(500).send(err);
@@ -9,7 +9,7 @@ exports.listAllArticles = (req, res) => {
   });
 };
 
-exports.listTagArticles = (req, res) => {
+const listTagArticles = (req, res) => {
   Article.find({ tag: req.params.tag }, (err, article) => {
     if (err) {
       res.status(500).send(err);
@@ -18,7 +18,7 @@ exports.listTagArticles = (req, res) => {
   });
 };
 
-exports.createNewArticle = (req, res) => {
+const createNewArticle = (req, res) => {
   const newArticle = new Article(req.body);
   newArticle.save((err) => {
     if (err) {
@@ -27,7 +27,7 @@ exports.createNewArticle = (req, res) => {
   });
 };
 
-exports.readArticle = (req, res) => {
+const readArticle = (req, res) => {
   Article.findById(req.params.articleid, (err, article) => {
     if (err) {
       res.status(500).send(err);
@@ -36,7 +36,7 @@ exports.readArticle = (req, res) => {
   });
 };
 
-exports.updateArticle = (req, res) => {
+const updateArticle = (req, res) => {
   Article.findOneAndUpdate(
     { _id: req.params.articleid },
     req.body,
@@ -50,16 +50,22 @@ exports.updateArticle = (req, res) => {
   );
 };
 
-exports.deleteArticle = (req, res) => {
-  Article.deleteOne(
-    { _id: req.params.articleid },
-    (err) => {
-      if (err) {
-        res.status(404).send(err);
-      }
-      res
-        .status(200)
-        .json({ message: 'Article successfully deleted' });
-    },
-  );
+const deleteArticle = (req, res) => {
+  Article.deleteOne({ _id: req.params.articleid }, (err) => {
+    if (err) {
+      res.status(404).send(err);
+    }
+    res
+      .status(200)
+      .json({ message: 'Article successfully deleted' });
+  });
+};
+
+export {
+  listAllArticles,
+  listTagArticles,
+  createNewArticle,
+  readArticle,
+  updateArticle,
+  deleteArticle,
 };

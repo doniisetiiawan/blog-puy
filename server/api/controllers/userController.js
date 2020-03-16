@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const User = require('../models/userModel');
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+import User from '../models/userModel';
 
-exports.register = (req, res) => {
+const register = (req, res) => {
   const newUser = new User(req.body);
   newUser.hash_password = bcrypt.hashSync(
     req.body.password,
@@ -17,7 +17,7 @@ exports.register = (req, res) => {
   });
 };
 
-exports.signIn = (req, res) => {
+const signIn = (req, res) => {
   User.findOne(
     {
       email: req.body.email,
@@ -51,7 +51,7 @@ exports.signIn = (req, res) => {
   );
 };
 
-exports.loginRequired = (req, res, next) => {
+const loginRequired = (req, res, next) => {
   if (req.user) {
     res.json({ message: 'Authorized User!' });
     next();
@@ -59,3 +59,5 @@ exports.loginRequired = (req, res, next) => {
     res.status(401).json({ message: 'Unauthorized user!' });
   }
 };
+
+export { register, signIn, loginRequired };

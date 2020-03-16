@@ -1,8 +1,11 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+import express from 'express';
 
-require('./server/config/db');
-const jsonwebtoken = require('jsonwebtoken');
+import './server/config/db';
+
+import bodyParser from 'body-parser';
+import jsonwebtoken from 'jsonwebtoken';
+
+import routes from "./server/api/routes/articleListRoutes";
 
 const app = express();
 
@@ -47,8 +50,6 @@ app.use((req, res, next) => {
     next();
   }
 });
-
-const routes = require('./server/api/routes/articleListRoutes');
 
 routes(app);
 

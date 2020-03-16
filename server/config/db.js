@@ -1,4 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+
+import '../api/models/Article';
 
 mongoose.set('useCreateIndex', true);
 
@@ -21,5 +23,3 @@ mongoose.connect(uri, options).then(
     );
   },
 );
-
-require('../api/models/Article');
